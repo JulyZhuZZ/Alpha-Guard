@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Alpha Guard",
+  "version": "1.0.0",
+  "description": "监控 gmgn.ai Top100 持仓，黑名单比例超阈值时在页面顶部显示风险提示横幅",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+  },
+  "icons": {
+    "128": "icon128.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["https://gmgn.ai/*", "https://www.gmgn.ai/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Alpha Guard"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gmgn.ai/*", "https://www.gmgn.ai/*"],
+      "js": ["content_bridge.js"],
+      "css": ["style.css"],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": ["https://gmgn.ai/*", "https://www.gmgn.ai/*"],
+      "js": ["content_main.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
